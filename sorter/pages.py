@@ -33,6 +33,9 @@ class PrefsOverOthers(Page):
 
     def before_next_page(self):
         self.participant.vars['subgroup'] = self.player.subgroup
+        # we may think about storing the data in some more user-friendly format (participant codes?)
+        # Right now it is just a very compact way to pass the ids of players of the next app, where
+        # Gale Shapley will be applied. It's easy but not very informative for the analysis
         other_ids = list(self.player.prefs.all().order_by('position').annotate(
             gs_id=F('item__participant__sorter_player__id')).values_list('gs_id', flat=True))
         self.player.prefs_over_others = json.dumps(other_ids)

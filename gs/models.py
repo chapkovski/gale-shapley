@@ -31,11 +31,9 @@ def chunks(lst, n):
 
 class Subsession(BaseSubsession):
     def set_small_groups(self):
-        # somewhere here we feed subgroups into GaleShapley
-        ps = self.player_set.all()
-
         newmat = to_shapley(self)
-        print("NEWMAT",newmat)
+
+        print('New matrix:', newmat)
         self.set_group_matrix(matrix=newmat)
 
 
@@ -44,5 +42,4 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    def start(self):
-        print('GS STARRT')
+    pass
