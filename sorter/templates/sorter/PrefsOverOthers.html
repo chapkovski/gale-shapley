@@ -1,0 +1,48 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Preferences of other players
+{% endblock %}
+
+{% block content %}
+
+
+
+    {% if form.non_form_errors %}
+        {% for error in form.non_form_errors %}
+            <div class="alert alert-danger mt-3">
+                {{ error }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="table table-hover table-striped table-responsive">
+        {{ form.management_form }}
+        <thead>
+        <tr>
+            <th>Player:</th>
+            <th>Trump</th>
+            <th>Abortion</th>
+            <th>Rank</th>
+
+        </tr>
+        </thead>
+
+        {% for f in form.forms %}
+            <tr>
+                <td class="text-nowrap">Player {{ forloop.counter }}</td>
+                <td class="text-nowrap">{{ f.instance.item.get_trump_display }}</td>
+                <td class="text-nowrap">{{ f.instance.item.get_abortion_display }}</td>
+                <td>{% formfield f.position label='' %}</td>
+                {% for hidden in f.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+
+            </tr>
+
+        {% endfor %}
+    </table>
+    {% next_button %}
+
+{% endblock %}

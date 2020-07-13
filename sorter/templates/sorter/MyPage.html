@@ -1,0 +1,12 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Page title
+{% endblock %}
+
+{% block content %}
+    {{ player.get_other_subgroup_members }}
+    {% next_button %}
+
+{% endblock %}
