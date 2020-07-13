@@ -38,14 +38,14 @@ def gale_shapley(males, females):
 
     for i in guy_objs:
         i.original_prefs = [get_obj_by_name(j, gals_objs) for j in males[i.name]]
-        i.prefs = [get_obj_by_name(j, gals_objs) for j in males[i.name]]
+        i.prefs = i.original_prefs[:]
     for i in gals_objs:
         i.original_prefs = [get_obj_by_name(j, guy_objs) for j in females[i.name]]
-        i.prefs = [get_obj_by_name(j, guy_objs) for j in females[i.name]]
+        i.prefs = i.original_prefs[:]
 
     # matching starts
     freeguys = [i for i in guy_objs if not i.married_to]
-    engaged_women = {}
+
     while freeguys:
         male_candidate = freeguys.pop(0)
         female_candidate = male_candidate.retrieve_most_preferred()
@@ -53,15 +53,12 @@ def gale_shapley(males, females):
         if not female_candidate.married_to:
             male_candidate.married_to = female_candidate
             female_candidate.married_to = male_candidate
-            engaged_women[female_candidate.name] = male_candidate
-
         else:
             if female_candidate.accepts(male_candidate):
                 free_hubby = female_candidate.married_to
                 freeguys.append(free_hubby)
                 male_candidate.married_to = female_candidate
                 female_candidate.married_to = male_candidate
-                engaged_women[female_candidate.name] = male_candidate
             else:
                 freeguys.append(male_candidate)
     """We actually don't need this, this is just to check that our algorithm works correctly"""

@@ -15,10 +15,12 @@ class PlayerBot(Bot):
         name = 'prefs'
         field_name = 'position'
         full_answers = {}
+        vals = list(range(1, q.count()+1))
+        random.shuffle(vals)
         for i, j in enumerate(q):
             full_answers[f'{name}-{i}-id'] = j.id
             full_answers[f'{name}-{i}-owner'] = self.player.pk
-            full_answers[f'{name}-{i}-{field_name}'] = i + 1
+            full_answers[f'{name}-{i}-{field_name}'] = vals[i]
         return {
             f'{name}-TOTAL_FORMS': q.count(),
             f'{name}-INITIAL_FORMS': q.count(),
